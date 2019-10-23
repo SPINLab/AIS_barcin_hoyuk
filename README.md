@@ -50,29 +50,29 @@ Is exactly the same as update 4, however refers to daily sketches which are stor
 # UPDATE 6 for fields:
 
 7_Pictures_fieldwork:picture_url </p>
-77_pictures_fieldwork_BH:picture_url
-77_Pictures_fieldwork_Locus:picture_url
-77_Pictures_fieldwork_Nails:picture_url
-77_Pictures_fieldwork_Structure:picture_url
-77_Pictures_fieldwork_Structure:picture_url
-777_Pictures_fieldwork_Locus_Lot:picture_url
+77_pictures_fieldwork_BH:picture_url</p>
+77_Pictures_fieldwork_Locus:picture_url</p>
+77_Pictures_fieldwork_Nails:picture_url</p>
+77_Pictures_fieldwork_Structure:picture_url</p>
+77_Pictures_fieldwork_Structure:picture_url</p>
+777_Pictures_fieldwork_Locus_Lot:picture_url</p>
 
 Needs to refer to the pictures that have been taken during the fieldwork as part of the daily activities of the various Trenches. (this table thus does not provide a full list of all the pictures, but it does provide a great share of it). 
-The pictures are stored in STATIC_DATA\PICTURES\
+The pictures are stored in STATIC_DATA\PICTURES\</p>
 
 The field picture_url, which is present in all tables can be generated based on 7_Pictures_fieldwork:Picture_ID since the Picture ID is the prefix of the files. (in order to make these unique we have added the Trench and Excavtion year to the file name).
 
 
 # UPDATE 7:
 
-Table 7777_BH_Pictures:
+Table 7777_BH_Pictures:</p>
 
-In the first years of the excavation the database model was still under construction. The consuquence is that we have BH numbers for object that have been registered in a different table with different field than was done lateron. The data has been harmonized, however the pictures could not be linked in the way how it currently done.
+In the first years of the excavation the database model was still under construction. The consuquence is that we have BH numbers for object that have been registered in a different table with different field than was done lateron. The data has been harmonized, however the pictures could not be linked in the way how it currently done.</p></p>
 
-Wheras for Update 5 the links are generated based on what is filled in in the database. The link to the objects that have been photographed in the early stages of the excavation need to be linked based on solely the file name. The only way to know if a picture is taken from a particular object is go through the file names.
+Wheras for Update 5 the links are generated based on what is filled in in the database. The link to the objects that have been photographed in the early stages of the excavation need to be linked based on solely the file name. The only way to know if a picture is taken from a particular object is go through the file names.</p>
 
-7777_BH_Pictures:picture_url can be extracted from the file list of all pictures in STATIC_DATA\PICTURES\ and should only select pictures which have in the prefix BH as first 2 characters.
+7777_BH_Pictures:picture_url can be extracted from the file list of all pictures in STATIC_DATA\PICTURES\ and should only select pictures which have in the prefix BH as first 2 characters.</p>
 
-7777_BH_Pictures:BH_Number is to be generated based on 7777_BH_Pictures:picture_url by selecting the numbers between BH and the next _ . For example PICTURES//BH03210_DSCF1585_13351555244_o.jpg become 03210. The next step in this conversion is to store it as a number creating the value of 7777_BH_Pictures:BH_Number in this example as 3210. 
+7777_BH_Pictures:BH_Number is to be generated based on 7777_BH_Pictures:picture_url by selecting the numbers between BH and the next _ . For example PICTURES//BH03210_DSCF1585_13351555244_o.jpg become 03210. The next step in this conversion is to store it as a number creating the value of 7777_BH_Pictures:BH_Number in this example as 3210.</p> 
 
 
