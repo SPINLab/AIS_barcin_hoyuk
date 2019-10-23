@@ -1,4 +1,4 @@
-#This script is developed by Maurice de Kleijn SPINlab Vu University. 
+#This script is developed by Maurice de Kleijn SPINlab Vrije Universiteit Amsterdam for Python 2.7
 #It integrates all the vectorized GIS data for the Excavation of Barcin Hoyuk into one shapefile allowing to ask queries over multiple layers. 
 #This script is step 1 Step 2 is to create a mxd for it 2_Make_MXD.py (to be used in ArcMap 10.3)
 
