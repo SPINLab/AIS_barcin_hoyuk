@@ -1,6 +1,6 @@
 #This script allows you to copy all files with a certain extention to a new folder without integrating the sub folders
 #Created by Maurice de Kleijn Vrije Universiteit Amsterdam Spatial Information laboratory for the datamanagement of the the archaological project Barin Hoyuk
-#22062016
+#22062016 Python 2.7
 
 import shutil
 import os
