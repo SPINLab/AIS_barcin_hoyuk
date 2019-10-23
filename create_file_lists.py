@@ -10,7 +10,8 @@ import time
 
 pathname = raw_input ("Give path where the static data is stored (e.g. U:\\research-barcin-hoyuk\\STATIC_DATA\\): ")
 
-list = ['PLANS','PICTURES','LOT_FORMS','SKETCHES','DAILY_REPORTS','OBJECT_DRAWINGS']
+
+list = ['PLANS','PICTURES','LOT_FORMS','SKETCHES','DAILY_REPORTS']
 for item in list:
 
 	os.system ('dir '+pathname+item+'\\ /s/d/b/A-D >'+pathname+'list_'+item+'_temp1.txt')
