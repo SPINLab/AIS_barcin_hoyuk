@@ -10,6 +10,7 @@ Note: In this document all fields/ collumn names in tables will be written like 
 
 To update the links in MS Access please note that it requires a # before and after the URL string.
 
+To create file lists of the links please look at https://github.com/SPINLab/AIS_barcin_hoyuk/blob/master/create_file_lists.py 
 
 # UPDATE 1 for field: 
 33_Locus_drawings:Drawing_url
