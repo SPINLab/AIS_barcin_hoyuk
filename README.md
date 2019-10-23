@@ -7,25 +7,36 @@ In this document the recepies for the various update scripts are presented.
 Note: In this document all fields/ collumn names in tables will be written like Table:Field
 To update the links in MS Access please note that it requires a # before and after the URL string.
 
-# UPDATE 1 for field: 33_Locus_drawings:Drawing_url
+
+# UPDATE 1 for field: 
+33_Locus_drawings:Drawing_url
 Needs to refer to the drawing which are available in the folder \STATIC_DATA\PLANS\TrenchXXX_scanned_plans\ XXX. Since the file name is exactly the same as the prefix and is present in the field 33_Locus_drawings field:Drawing_No this field can be updated accordingly. The suffic varies from .tif, .jpg, .bmp and .png.
 
-# UPDATE 2 for field: 6_Drawings_fieldwork:Drawing_url
+
+# UPDATE 2 for field: 
+6_Drawings_fieldwork:Drawing_url
 Needs to refer to the drawing which are available in the folder \STATIC_DATA\PLANS\TrenchXXX_scanned_plans\ XXX. Since the file name is exactly the same as the prefix and is present in the field 6_Drawings_fieldwork:Drawing_No this field can be updated accordingly. The suffic varies from .tif, .jpg, .bmp and .png.
 
-# UPDATE 3 for field: 	4_Lot: Link_to_scanned_lot_form  
+
+# UPDATE 3 for field: 	
+4_Lot: Link_to_scanned_lot_form  
 Needs to refer to scanned lot forms available in folder: \STATIC_DATA\LOT_FORMS\
 The files in this folder are systematically names contain the Trenc, year and lot number and stored as pdf. E.g. TRENCH_YEAR_LOT e.g. L10_2011_007_lot_form.pdf
 To generate 4_Lot: Link_to_scanned_lot_form  the fields  4_Lot:Trench, 4_Lot:Lot, 4_Lot:Date need to be combined. Please note that from 4_Lot:Date only the year needs to be extracted.
 
-# UPDATE 4 for field:	4_Lot: Link_to_daily_report 
+
+# UPDATE 4 for field:	
+4_Lot: Link_to_daily_report 
 Needs to refer to scanned daily reports. For every day at the excavation every trench has, if work has been executed on that particular day, a daily report. The scanned forms are stored in:
 STATIC_DATA\DAILY_REPORTS\
 The files are systematically stored as TRENCH_DAY_MONTH_YEAR e.g. L10_03_08_2011_daily_report.pdf
 In order to update 4_Lot: Link_to_daily_report the fields 4_Lot:Trench, 4_Lot:Date are to be used. (date need to be coverted to a string)
 
-# UPDATE 5 for field: 4_Lot: Link_to_scanned_daily_sketch 
+
+# UPDATE 5 for field: 
+4_Lot: Link_to_scanned_daily_sketch 
 Is exactly the same as update 4, however refers to daily sketches which are stored in STATIC_DATA\SKETCHES\
+
 
 # UPDATE 6 for fields: 
 7_Pictures_fieldwork:picture_url
@@ -39,7 +50,9 @@ Needs to refer to the pictures that have been taken during the fieldwork as part
 The pictures are stored in STATIC_DATA\PICTURES\
 The field picture_url, which is present in all tables can be generated based on 7_Pictures_fieldwork:Picture_ID since the Picture ID is the prefix of the files. (in order to make these unique we have added the Trench and Excavtion year to the file name).
 
-# UPDATE 7 Table 7777_BH_Pictures:
+
+# UPDATE 7:
+Table 7777_BH_Pictures:
 In the first years of the excavation the database model was still under construction. The consuquence is that we have BH numbers for object that have been registered in a different table with different field than was done lateron. The data has been harmonized, however the pictures could not be linked in the way how it currently done. 
 Wheras for Update 5 the links are generated based on what is filled in in the database. The link to the objects that have been photographed in the early stages of the excavation need to be linked based on solely the file name. The only way to know if a picture is taken from a particular object is go through the file names. 
 7777_BH_Pictures:picture_url can be extracted from the file list of all pictures in STATIC_DATA\PICTURES\ and should only select pictures which have in the prefix BH as first 2 characters.
