@@ -2,9 +2,12 @@
 This repository contains the auxiliary scripts for updating the Archaeological Information System for the excavation activities of the site Barcin Hoyuk. 
 
 For the archaeological project Barcin Hoyuk a database has been developed to store all the excavation data. The database contains data that has been translate from paper forms. In order to identify wether the information in the database corresponds to what has been identified in the field, the database contains links to scans of paper forms (e.g. lot forms, field drawings, daily reports etc.). Furthermore the database contains links to pictures that has been taken in the field or made afterwards of inidivual objects.
+
 Whenever an individual researcher want to use the database they can download a copy and use it on their own machine. The pictures and scanned documents are stored on the Yoda platform and are accessible through the database.
 In this document the recepies for the various update scripts are presented.
+
 Note: In this document all fields/ collumn names in tables will be written like Table:Field
+
 To update the links in MS Access please note that it requires a # before and after the URL string.
 
 
