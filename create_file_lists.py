@@ -1,5 +1,5 @@
 """
-Created on Mon Oct  10/10/2019
+Created on Mon Oct  10/10/2019 Python 2.7
 
 @author: Maurice de Kleijn SPINlab VU
 
