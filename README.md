@@ -49,7 +49,7 @@ Is exactly the same as update 4, however refers to daily sketches which are stor
 
 # UPDATE 6 for fields:
 
-7_Pictures_fieldwork:picture_url
+7_Pictures_fieldwork:picture_url \n
 77_pictures_fieldwork_BH:picture_url
 77_Pictures_fieldwork_Locus:picture_url
 77_Pictures_fieldwork_Nails:picture_url
