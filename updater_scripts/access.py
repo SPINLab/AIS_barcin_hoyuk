@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, Table, Column, String, Integer, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import urllib
+import sqlalchemy_access
 from updater_scripts.config import ACCESS_DATABASE_FILE
 
 # database connection
@@ -10,7 +11,7 @@ Base = declarative_base()
 connection_string = (
     r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=%s; ExtendedAnsiSQL=1;' % ACCESS_DATABASE_FILE
 )
-connection_url = f"access+pyodbc:///?odbc_connect={urllib.parse.quote_plus(connection_string)}"
+connection_url = "access+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(connection_string)
 engine = create_engine(connection_url)
 
 Session = sessionmaker(bind=engine)
