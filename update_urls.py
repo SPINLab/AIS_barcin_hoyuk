@@ -4,6 +4,10 @@ Created on 10/2019 Python 3.7
 @author: Peter Vos VU It for Research
 
 Retrieve image and pdf file lists from mounted webdav connection and update the database with urls
+
+Make sure to:
+pip install SQLAlchemy
+pip install sqlalchemy-access
 '''
 import updater_scripts.access as access
 import updater_scripts.file_list_builder as file_list_builder
@@ -24,9 +28,7 @@ def picture_id_list(file_list):
 
 def update_picture_urls(tbl, file_list):
     print('update %s' % tbl.__name__)
-
     id_list = picture_id_list(file_list)
-
     session = access.Session()
     rows = session.query(tbl)
     print('%s records in table' % rows.count())
