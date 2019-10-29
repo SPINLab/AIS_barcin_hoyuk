@@ -1,3 +1,10 @@
+'''
+Created on 10/2019 Python 3.7
+
+@author: Peter Vos VU It for Research
+
+Retrieve image and pdf file lists from mounted webdav connection and update the database with urls
+'''
 import updater_scripts.access as access
 import updater_scripts.file_list_builder as file_list_builder
 import re
@@ -28,7 +35,7 @@ def update_picture_urls(tbl, file_list):
         if row is not None:
             if row.Picture_ID in id_list:
                 total_db = total_db + 1
-                row.picture_url = id_list[row.Picture_ID][0]
+                row.picture_url = '#%s#' % (id_list[row.Picture_ID])
     print('%s picture_urls set in db' % (total_db))
     print('commit changes')
     session.commit()
@@ -46,7 +53,7 @@ def update_drawing_urls(tbl, file_list):
             # base file name should be the Drawing_No
             if row.Drawing_No in file_list:
                 total_db = total_db + 1
-                row.Drawing_url = file_list[row.Drawing_No][1]
+                row.Drawing_url = '#%s#' % (file_list[row.Drawing_No][1])
     print('%s drawing_urls set in db' % (total_db))
     print('commit changes')
     session.commit()
@@ -65,7 +72,7 @@ def update_lot_forms(tbl, file_list):
                 id = '%s_%s_%s_lot_form' % (row.Trench, row.Date.year, int(row.Lot))
                 if id in file_list:
                     total_db = total_db + 1
-                    row.Link_to_scanned_lot_form = file_list[id][1]
+                    row.Link_to_scanned_lot_form = '#%s#' % (file_list[id][1])
                 else:
                     row.Link_to_scanned_lot_form = ''
             except:
@@ -87,10 +94,10 @@ def update_daily_reports(tbl, file_list):
         if row is not None:
             try:
                 id = '%s_%s_%s_%s_daily_report' % (
-                row.Trench, '{:02}'.format(row.Date.day), '{:02}'.format(row.Date.month), row.Date.year)
+                    row.Trench, '{:02}'.format(row.Date.day), '{:02}'.format(row.Date.month), row.Date.year)
                 if id in file_list:
                     total_db = total_db + 1
-                    row.Link_to_daily_report = file_list[id][1]
+                    row.Link_to_daily_report = '#%s#' % (file_list[id][1])
                 else:
                     row.Link_to_daily_report = ''
             except:
@@ -112,10 +119,10 @@ def update_daily_sketches(tbl, file_list):
         if row is not None:
             try:
                 id = '%s_%s_%s_%s_daily_sketch' % (
-                row.Trench, '{:02}'.format(row.Date.day), '{:02}'.format(row.Date.month), row.Date.year)
+                    row.Trench, '{:02}'.format(row.Date.day), '{:02}'.format(row.Date.month), row.Date.year)
                 if id in file_list:
                     total_db = total_db + 1
-                    row.Link_to_scanned_daily_sketch = file_list[id][1]
+                    row.Link_to_scanned_daily_sketch = '#%s#' % (file_list[id][1])
                 else:
                     row.Link_to_scanned_daily_sketch = ''
             except:
@@ -139,12 +146,12 @@ def update_bh_picture_urls(tbl, file_list):
             if q.count() == 0:  # new record
                 bh = tbl(
                     BH_Number=bhnum,
-                    picture_url=file_list[f][1]
+                    picture_url='#%s#' % (file_list[f][1])
                 )
                 session.add(bh)
             else:
                 bh = q.first()
-                bh.picture_url = file_list[f][1]
+                bh.picture_url = '#%s#' %  (file_list[f][1])
             total_db = total_db + 1
     session.commit()
     print('%s picture_urls set in db' % (total_db))
@@ -189,4 +196,3 @@ update_picture_urls(access.pictures_fieldwork_Structure, file_list)
 update_picture_urls(access.pictures_fieldwork_Locus_Lot, file_list)
 # UPDATE 7
 update_bh_picture_urls(access.BH_pictures, file_list)
-

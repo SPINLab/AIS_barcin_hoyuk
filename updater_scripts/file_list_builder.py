@@ -1,6 +1,5 @@
 import glob
 import os
-import re
 import csv
 from updater_scripts.config import DATA_DIR, DRIVE_LETTER, ROOT_URL
 
