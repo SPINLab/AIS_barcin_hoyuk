@@ -1,13 +1,14 @@
 '''
-Created on 10/2019 Python 3.7
+Created 10/2019 Python 3.7
 
-@author: Peter Vos VU It for Research
+@author: Peter Vos VU IT for Research
 
 Retrieve image and pdf file lists from mounted webdav connection and update the database with urls
 
 Make sure to:
 pip install SQLAlchemy
 pip install sqlalchemy-access
+set the correct paths in updater_scripts/config.py
 '''
 import updater_scripts.access as access
 import updater_scripts.file_list_builder as file_list_builder
