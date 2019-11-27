@@ -19,7 +19,7 @@ def build_file_list(sub, listfile):
         print(os.path.join(ROOT_DIR, sub, '**/*'))
         for filename in glob.iglob(os.path.join(ROOT_DIR, sub, '**/*'), recursive=True):
             extension = os.path.splitext(filename)[1].lower()
-            if extension in ['.tif', '.jpg', '.pdf', '.bmp']:
+            if extension in ['.tif', '.tiff', '.jpg', '.pdf', '.bmp']:
                 basename = os.path.splitext(os.path.basename(filename))[0]
                 writer.writerow([basename, path_to_url(filename)])
     print('wrote file_list to: %s' % listfile)
