@@ -1,8 +1,8 @@
+import sqlalchemy_access
 from sqlalchemy import create_engine, Table, Column, String, Integer, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import urllib
-import sqlalchemy_access
 from updater_scripts.config import ACCESS_DATABASE_FILE
 
 # database connection
@@ -36,7 +36,9 @@ class pictures_fieldwork_Locus_Lot(Base):
     __table__ = Table("777_Pictures_fieldwork_Locus_Lot", Base.metadata, Column("Picture_ID", String, primary_key=True),
                       autoload=True, autoload_with=engine)
 class BH_pictures(Base):
-    __table__ = Table("7777_BH_Pictures", Base.metadata, Column("BH_Number", String, primary_key=True),
+    __table__ = Table("7777_BH_Pictures", Base.metadata,
+                      Column("BH_Number", String, primary_key=True),
+                      Column("picture_url", String, primary_key=True),
                       autoload=True, autoload_with=engine)
 class locus_drawings(Base):
     __table__ = Table("33_Locus_drawings", Base.metadata, Column("Drawing_No", String, primary_key=True),

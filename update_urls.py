@@ -1,5 +1,5 @@
 '''
-Created 10/2019 Python 3.7
+Created 10/2019 Python 3.7 (2.7 has a problem with sqlalchemy-access)
 
 @author: Peter Vos VU IT for Research
 
@@ -21,9 +21,10 @@ def picture_id_list(file_list):
         basename = f
         url = file_list[f][1]
         m = re.match(r'(.*)_(\d{11}).+', basename)
-        picture_id = m.group(1)
-        flickr_id = m.group(2)
-        id_list[picture_id] = url
+        if m is not None:
+            picture_id = m.group(1)
+            flickr_id = m.group(2)
+            id_list[picture_id] = url
     return id_list
 
 
@@ -144,17 +145,16 @@ def update_bh_picture_urls(tbl, file_list):
     for f in file_list:
         m = re.match(r'^BH(\d+)_.+', f)
         if m:
+            url =file_list[f][1]
             bhnum = m.group(1)
-            q = session.query(tbl).filter(tbl.BH_Number == bhnum)
+            # a BH_Number can have more than one picture, so the combination is unique
+            q = session.query(tbl).filter(tbl.BH_Number == bhnum and tbl.picture_url == url)
             if q.count() == 0:  # new record
                 bh = tbl(
                     BH_Number=bhnum,
-                    picture_url='#%s#' % (file_list[f][1])
+                    picture_url='#%s#' % (url)
                 )
                 session.add(bh)
-            else:
-                bh = q.first()
-                bh.picture_url = '#%s#' %  (file_list[f][1])
             total_db = total_db + 1
     session.commit()
     print('%s picture_urls set in db' % (total_db))
