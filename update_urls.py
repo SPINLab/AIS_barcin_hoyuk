@@ -154,7 +154,7 @@ def update_bh_picture_urls(tbl, file_list):
             url =file_list[f][1]
             bhnum = m.group(1)
             # a BH_Number can have more than one picture, so the combination is unique
-            q = session.query(tbl).filter(tbl.BH_Number == bhnum and tbl.picture_url == url)
+            q = session.query(tbl).filter(tbl.BH_Number == bhnum, tbl.picture_url == url)
             if q.count() == 0:  # new record
                 bh = tbl(
                     BH_Number=bhnum,
