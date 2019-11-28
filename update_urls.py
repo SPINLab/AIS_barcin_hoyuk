@@ -52,12 +52,18 @@ def update_drawing_urls(tbl, file_list):
     rows = session.query(tbl)
     print('%s records in table' % rows.count())
     total_db = 0
+    id_list={}
+    # Drawing_No should be first 2 parts of filename
+    for f in file_list:
+        url = file_list[f][1]
+        a = f.split('_')
+        id='%s_%s' % (a[0],a[1])
+        id_list[id]=url
     for row in rows.all():
         if row is not None:
-            # base file name should be the Drawing_No
-            if row.Drawing_No in file_list:
+            if row.Drawing_No in id_list:
                 total_db = total_db + 1
-                row.Drawing_url = '#%s#' % (file_list[row.Drawing_No][1])
+                row.Drawing_url = '#%s#' % (id_list[row.Drawing_No])
     print('%s drawing_urls set in db' % (total_db))
     print('commit changes')
     session.commit()
