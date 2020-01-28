@@ -167,6 +167,29 @@ def update_bh_picture_urls(tbl, file_list):
     print('commit changes')
     session.close()
 
+def update_bh_drawing_urls(tbl, file_list):
+    print('update %s' % tbl.__name__)
+    session = access.Session()
+    total_db = 0
+    for f in file_list:
+        m = re.match(r'^BH(\d+)_.+', f)
+        if m:
+            url =file_list[f][1]
+            bhnum = m.group(1)
+            # a BH_Number can have more than one picture, so the combination is unique
+            q = session.query(tbl).filter(tbl.BH_number == bhnum, tbl.Link_to_BH_drawing == url)
+            if q.count() == 0:  # new record
+                bh = tbl(
+                    BH_number=bhnum,
+                    Link_to_BH_drawing='#%s#' % (url)
+                )
+                session.add(bh)
+            total_db = total_db + 1
+    session.commit()
+    print('%s drawing_urls set in db' % (total_db))
+    print('commit changes')
+    session.close()
+
 list_rebuild=True
 if input("Get new directory listing? (y/n)")=="n":
     list_rebuild=False
@@ -209,3 +232,8 @@ update_picture_urls(access.pictures_fieldwork_Structure, file_list)
 update_picture_urls(access.pictures_fieldwork_Locus_Lot, file_list)
 # UPDATE 7
 update_bh_picture_urls(access.BH_pictures, file_list)
+
+# UPDATE 8
+file_list = file_list_builder.get_file_list('OBJECT_DRAWINGS', list_rebuild)
+print('%s files found in OBJECT_DRAWINGS' % len(file_list))
+update_bh_drawing_urls(access.BH_drawings, file_list)

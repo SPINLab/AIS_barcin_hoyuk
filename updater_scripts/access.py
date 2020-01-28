@@ -40,6 +40,11 @@ class BH_pictures(Base):
                       Column("BH_Number", String, primary_key=True),
                       Column("picture_url", String, primary_key=True),
                       autoload=True, autoload_with=engine)
+class BH_drawings(Base):
+    __table__ = Table("7777_BH_drawings", Base.metadata,
+                      Column("BH_number", String, primary_key=True),
+                      Column("Link_to_BH_drawing", String, primary_key=True),
+                      autoload=True, autoload_with=engine)
 class locus_drawings(Base):
     __table__ = Table("33_Locus_drawings", Base.metadata, Column("Drawing_No", String, primary_key=True),
                       autoload=True, autoload_with=engine)

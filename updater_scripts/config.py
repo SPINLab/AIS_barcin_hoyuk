@@ -12,4 +12,4 @@ ROOT_URL = 'https://vu-data.irodspoc-sara.surf-hosted.nl/'
 
 # Location of the Access database file you want to update
 # Always use a copy on a local drive, no spaces in the name!
-ACCESS_DATABASE_FILE = 'E:\\tmp\\barcin_hoyuk_maindb-copy.mdb'
+ACCESS_DATABASE_FILE = 'E:\\tmp\\barcin_hoyuk_maindb_20200128_yoda.mdb'
