@@ -25,9 +25,9 @@ def build_file_list(sub, listfile):
     print('wrote file_list to: %s' % listfile)
 
 
-def get_file_list(subdir):
+def get_file_list(subdir, list_rebuild = True):
     listfile = '%s_%s' % (subdir, CSV_FILE_LIST_BASE)
-    if not os.path.isfile(listfile):
+    if not os.path.isfile(listfile) or list_rebuild:
         build_file_list(subdir, listfile)
     else:
         print('Found %s, using it' % listfile)

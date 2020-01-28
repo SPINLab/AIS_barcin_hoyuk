@@ -167,9 +167,13 @@ def update_bh_picture_urls(tbl, file_list):
     print('commit changes')
     session.close()
 
+list_rebuild=True
+if input("Get new directory listing? (y/n)")=="n":
+    list_rebuild=False
+
 
 # UPDATE 1
-file_list = file_list_builder.get_file_list('PLANS')
+file_list = file_list_builder.get_file_list('PLANS', list_rebuild)
 print('%s files found in PLANS' % len(file_list))
 update_drawing_urls(access.locus_drawings, file_list)
 # UPDATE 2
@@ -177,25 +181,25 @@ update_drawing_urls(access.drawings_fieldwork, file_list)
 print()
 
 # UPDATE 3
-file_list = file_list_builder.get_file_list('LOT_FORMS')
+file_list = file_list_builder.get_file_list('LOT_FORMS', list_rebuild)
 print('%s files found in LOT_FORMS' % len(file_list))
 update_lot_forms(access.lot, file_list)
 print()
 
 # UPDATE 4
-file_list = file_list_builder.get_file_list('DAILY_REPORTS')
+file_list = file_list_builder.get_file_list('DAILY_REPORTS', list_rebuild)
 print('%s files found in DAILY_REPORTS' % len(file_list))
 update_daily_reports(access.lot, file_list)
 print()
 
 # UPDATE 5
-file_list = file_list_builder.get_file_list('SKETCHES')
+file_list = file_list_builder.get_file_list('SKETCHES', list_rebuild)
 print('%s files found in SKETCHES' % len(file_list))
 update_daily_sketches(access.lot, file_list)
 print()
 
 # UPDATE 6
-file_list = file_list_builder.get_file_list('PICTURES')
+file_list = file_list_builder.get_file_list('PICTURES', list_rebuild)
 print('%s files found in PICTURES' % len(file_list))
 update_picture_urls(access.pictures_fieldwork, file_list)
 update_picture_urls(access.pictures_fieldwork_BH, file_list)
