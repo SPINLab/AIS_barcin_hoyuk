@@ -78,3 +78,9 @@ class lot(Base):
                       Column("Lot", Integer, primary_key=True),
                       Column("Date", Date, primary_key=True),
                       autoload=True, autoload_with=engine)
+
+class trench(Base):
+    __table__ = Table("2_Trench", Base.metadata,
+                      Column("Trench", String, primary_key=True),
+                      Column("Trench_Year", Integer, primary_key=True),
+                      autoload=True, autoload_with=engine)

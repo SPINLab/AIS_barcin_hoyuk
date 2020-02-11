@@ -192,10 +192,33 @@ def update_bh_drawing_urls(tbl, file_list):
     print('commit changes')
     session.close()
 
+def update_trench_reports(tbl, file_list):
+    print('update %s' % tbl.__name__)
+    session = access.Session()
+    total_db = 0
+    for f in file_list:
+        m = re.match(r'^([A-Z].+)_(\d{4})_trench_report', f)
+        if m:
+            url =file_list[f][1]
+            trench = m.group(1)
+            year = m.group(2)
+            q = session.query(tbl).filter(tbl.Trench == trench, tbl.Trench_Year == year)
+            if q.count() == 0:  # new record
+                tr = tbl(
+                    Trench=trench,
+                    Trench_Year=year,
+                    Trench_report_URL=access_link(url)
+                )
+                session.add(tr)
+            total_db = total_db + 1
+    session.commit()
+    print('%s trench_report_urls set in db' % (total_db))
+    print('commit changes')
+    session.close()
+
 list_rebuild=True
 if input("Get new directory listing? (y/n)")=="n":
     list_rebuild=False
-
 
 # UPDATE 1
 file_list = file_list_builder.get_file_list('PLANS', list_rebuild)
@@ -239,3 +262,8 @@ update_bh_picture_urls(access.BH_pictures, file_list)
 file_list = file_list_builder.get_file_list('OBJECT_DRAWINGS', list_rebuild)
 print('%s files found in OBJECT_DRAWINGS' % len(file_list))
 update_bh_drawing_urls(access.BH_drawings, file_list)
+
+# UPDATE 9
+file_list = file_list_builder.get_file_list('TRENCH_REPORTS', list_rebuild)
+print('%s files found in TRENCH_REPORTS' % len(file_list))
+update_trench_reports(access.trench, file_list)
