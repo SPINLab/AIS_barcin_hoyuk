@@ -14,6 +14,8 @@ import updater_scripts.access as access
 import updater_scripts.file_list_builder as file_list_builder
 import re
 
+def access_link(url):
+    return '#%s#' % url
 
 def picture_id_list(file_list):
     id_list = {}
@@ -39,7 +41,7 @@ def update_picture_urls(tbl, file_list):
         if row is not None:
             if row.Picture_ID in id_list:
                 total_db = total_db + 1
-                row.picture_url = '#%s#' % (id_list[row.Picture_ID])
+                row.picture_url = access_link(id_list[row.Picture_ID])
     print('%s picture_urls set in db' % (total_db))
     print('commit changes')
     session.commit()
@@ -63,7 +65,7 @@ def update_drawing_urls(tbl, file_list):
         if row is not None:
             if row.Drawing_No in id_list:
                 total_db = total_db + 1
-                row.Drawing_url = '#%s#' % (id_list[row.Drawing_No])
+                row.Drawing_url = access_link(id_list[row.Drawing_No])
     print('%s drawing_urls set in db' % (total_db))
     print('commit changes')
     session.commit()
@@ -82,7 +84,7 @@ def update_lot_forms(tbl, file_list):
                 id = '%s_%s_%s_lot_form' % (row.Trench, row.Date.year, int(row.Lot))
                 if id in file_list:
                     total_db = total_db + 1
-                    row.Link_to_scanned_lot_form = '#%s#' % (file_list[id][1])
+                    row.Link_to_scanned_lot_form = access_link(file_list[id][1])
                 else:
                     row.Link_to_scanned_lot_form = ''
             except:
@@ -107,7 +109,7 @@ def update_daily_reports(tbl, file_list):
                     row.Trench, '{:02}'.format(row.Date.day), '{:02}'.format(row.Date.month), row.Date.year)
                 if id in file_list:
                     total_db = total_db + 1
-                    row.Link_to_daily_report = '#%s#' % (file_list[id][1])
+                    row.Link_to_daily_report = access_link(file_list[id][1])
                 else:
                     row.Link_to_daily_report = ''
             except:
@@ -132,7 +134,7 @@ def update_daily_sketches(tbl, file_list):
                     row.Trench, '{:02}'.format(row.Date.day), '{:02}'.format(row.Date.month), row.Date.year)
                 if id in file_list:
                     total_db = total_db + 1
-                    row.Link_to_scanned_daily_sketch = '#%s#' % (file_list[id][1])
+                    row.Link_to_scanned_daily_sketch = access_link(file_list[id][1])
                 else:
                     row.Link_to_scanned_daily_sketch = ''
             except:
@@ -158,7 +160,7 @@ def update_bh_picture_urls(tbl, file_list):
             if q.count() == 0:  # new record
                 bh = tbl(
                     BH_Number=bhnum,
-                    picture_url='#%s#' % (url)
+                    picture_url=access_link(url)
                 )
                 session.add(bh)
             total_db = total_db + 1
@@ -181,7 +183,7 @@ def update_bh_drawing_urls(tbl, file_list):
             if q.count() == 0:  # new record
                 bh = tbl(
                     BH_number=bhnum,
-                    Link_to_BH_drawing='#%s#' % (url)
+                    Link_to_BH_drawing=access_link(url)
                 )
                 session.add(bh)
             total_db = total_db + 1

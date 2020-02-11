@@ -10,40 +10,21 @@ Note: In this document all fields/ collumn names in tables will be written like 
 
 To update the links in MS Access please note that it requires a # before and after the URL string.
 
-#### Requirements:
-```
-Python v3.7.x
+To create file lists of the links please look at https://github.com/SPINLab/AIS_barcin_hoyuk/blob/master/create_file_lists.py 
 
-pyodbc>4.0
-SQLAlchemy>1.3.0
-sqlalchemy-access>1.0
-```
-
-##### MS Access
-Please note you will need Python and Office with the same bitness, e.g. 64bit Python and 64bit Office or both 32bit.
-
-At the moment the script does not work with Access 2019, but you can install the [Access 2016 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=54920), also available in 32 and 64 bit.
-
-## Running the script
-- Make sure the Yoda storage is mounted with a drive letter.
-- Make sure the database version you want to update is on your local machine
-- Check and if necessary change the paths in `updater_scripts/config.py` 
-- Run `update_urls.py`
-
-
-### UPDATE 1 for field: 
+# UPDATE 1 for field: 
 33_Locus_drawings:Drawing_url
 
 Needs to refer to the drawing which are available in the folder \STATIC_DATA\PLANS\TrenchXXX_scanned_plans\ XXX. Since the file name is exactly the same as the prefix and is present in the field 33_Locus_drawings field:Drawing_No this field can be updated accordingly. The suffic varies from .tif, .jpg, .bmp and .png.
 
 
-### UPDATE 2 for field: 
+# UPDATE 2 for field: 
 6_Drawings_fieldwork:Drawing_url
 
 Needs to refer to the drawing which are available in the folder \STATIC_DATA\PLANS\TrenchXXX_scanned_plans\ XXX. Since the file name is exactly the same as the prefix and is present in the field 6_Drawings_fieldwork:Drawing_No this field can be updated accordingly. The suffic varies from .tif, .jpg, .bmp and .png.
 
 
-### UPDATE 3 for field: 	
+# UPDATE 3 for field: 	
 4_Lot: Link_to_scanned_lot_form
 
 Needs to refer to scanned lot forms available in folder: \STATIC_DATA\LOT_FORMS\
@@ -52,7 +33,7 @@ The files in this folder are systematically names contain the Trenc, year and lo
 To generate 4_Lot: Link_to_scanned_lot_form  the fields  4_Lot:Trench, 4_Lot:Lot, 4_Lot:Date need to be combined. Please note that from 4_Lot:Date only the year needs to be extracted.
 
 
-### UPDATE 4 for field:	
+# UPDATE 4 for field:	
 4_Lot: Link_to_daily_report
 
 Needs to refer to scanned daily reports. For every day at the excavation every trench has, if work has been executed on that particular day, a daily report. The scanned forms are stored in:
@@ -62,12 +43,12 @@ The files are systematically stored as TRENCH_DAY_MONTH_YEAR e.g. L10_03_08_2011
 In order to update 4_Lot: Link_to_daily_report the fields 4_Lot:Trench, 4_Lot:Date are to be used. (date need to be coverted to a string)
 
 
-### UPDATE 5 for field: 
+# UPDATE 5 for field: 
 4_Lot: Link_to_scanned_daily_sketch 
 Is exactly the same as update 4, however refers to daily sketches which are stored in STATIC_DATA\SKETCHES\
 
 
-### UPDATE 6 for fields:
+# UPDATE 6 for fields:
 
 7_Pictures_fieldwork:picture_url </p>
 77_pictures_fieldwork_BH:picture_url</p>
@@ -83,7 +64,7 @@ The pictures are stored in STATIC_DATA\PICTURES\</p>
 The field picture_url, which is present in all tables can be generated based on 7_Pictures_fieldwork:Picture_ID since the Picture ID is the prefix of the files. (in order to make these unique we have added the Trench and Excavtion year to the file name).
 
 
-### UPDATE 7:
+# UPDATE 7:
 
 Table 7777_BH_Pictures:</p>
 
@@ -95,7 +76,4 @@ Wheras for Update 5 the links are generated based on what is filled in in the da
 
 7777_BH_Pictures:BH_Number is to be generated based on 7777_BH_Pictures:picture_url by selecting the numbers between BH and the next _ . For example PICTURES//BH03210_DSCF1585_13351555244_o.jpg become 03210. The next step in this conversion is to store it as a number creating the value of 7777_BH_Pictures:BH_Number in this example as 3210.</p> 
 
-### UPDATE 8:
-
-Table 7777_BH_drawings
 
