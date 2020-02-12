@@ -14,8 +14,10 @@ import updater_scripts.access as access
 import updater_scripts.file_list_builder as file_list_builder
 import re
 
+
 def access_link(url):
     return '#%s#' % url
+
 
 def picture_id_list(file_list):
     id_list = {}
@@ -31,7 +33,7 @@ def picture_id_list(file_list):
 
 
 def update_picture_urls(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     id_list = picture_id_list(file_list)
     session = access.Session()
     rows = session.query(tbl)
@@ -49,18 +51,18 @@ def update_picture_urls(tbl, file_list):
 
 
 def update_drawing_urls(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     rows = session.query(tbl)
     print('%s records in table' % rows.count())
     total_db = 0
-    id_list={}
+    id_list = {}
     # Drawing_No should be first 2 parts of filename
     for f in file_list:
         url = file_list[f][1]
         a = f.split('_')
-        id='%s_%s' % (a[0],a[1])
-        id_list[id]=url
+        id = '%s_%s' % (a[0], a[1])
+        id_list[id] = url
     for row in rows.all():
         if row is not None:
             if row.Drawing_No in id_list:
@@ -73,7 +75,7 @@ def update_drawing_urls(tbl, file_list):
 
 
 def update_lot_forms(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     rows = session.query(tbl)
     print('%s records in table' % rows.count())
@@ -88,8 +90,8 @@ def update_lot_forms(tbl, file_list):
                 else:
                     row.Link_to_scanned_lot_form = ''
             except:
-                print('error, no Date?')
-                print(row.Trench, int(row.Lot), row.Date)
+                print('error, no Date in database?')
+                print('Trench %s | Lot %s | Date %s' % (row.Trench, int(row.Lot), row.Date))
     session.commit()
     print('%s link_to_scanned_lot_forms set in db' % (total_db))
     print('commit changes')
@@ -97,7 +99,7 @@ def update_lot_forms(tbl, file_list):
 
 
 def update_daily_reports(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     rows = session.query(tbl)
     print('%s records in table' % rows.count())
@@ -113,8 +115,8 @@ def update_daily_reports(tbl, file_list):
                 else:
                     row.Link_to_daily_report = ''
             except:
-                print('error, no Date?')
-                print(row.Trench, int(row.Lot), row.Date)
+                print('error, no Date in database?')
+                print('Trench %s | Date %s' % (row.Trench, row.Date))
     session.commit()
     print('%s link_to_daily_reports set in db' % (total_db))
     print('commit changes')
@@ -122,7 +124,7 @@ def update_daily_reports(tbl, file_list):
 
 
 def update_daily_sketches(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     rows = session.query(tbl)
     print('%s records in table' % rows.count())
@@ -138,8 +140,8 @@ def update_daily_sketches(tbl, file_list):
                 else:
                     row.Link_to_scanned_daily_sketch = ''
             except:
-                print('error, no Date?')
-                print(row.Trench, int(row.Lot), row.Date)
+                print('error, no Date in database?')
+                print('Trench %s | Lot %s | Date %s' % (row.Trench, int(row.Lot), row.Date))
     session.commit()
     print('%s link_to_daily_sketches set in db' % (total_db))
     print('commit changes')
@@ -147,13 +149,13 @@ def update_daily_sketches(tbl, file_list):
 
 
 def update_bh_picture_urls(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     total_db = 0
     for f in file_list:
         m = re.match(r'^BH(\d+)_.+', f)
         if m:
-            url =file_list[f][1]
+            url = file_list[f][1]
             bhnum = m.group(1)
             # a BH_Number can have more than one picture, so the combination is unique
             q = session.query(tbl).filter(tbl.BH_Number == bhnum, tbl.picture_url == url)
@@ -169,14 +171,15 @@ def update_bh_picture_urls(tbl, file_list):
     print('commit changes')
     session.close()
 
+
 def update_bh_drawing_urls(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     total_db = 0
     for f in file_list:
         m = re.match(r'^BH(\d+)_.+', f)
         if m:
-            url =file_list[f][1]
+            url = file_list[f][1]
             bhnum = m.group(1)
             # a BH_Number can have more than one picture, so the combination is unique
             q = session.query(tbl).filter(tbl.BH_number == bhnum, tbl.Link_to_BH_drawing == url)
@@ -192,14 +195,15 @@ def update_bh_drawing_urls(tbl, file_list):
     print('commit changes')
     session.close()
 
+
 def update_trench_reports(tbl, file_list):
-    print('update %s' % tbl.__name__)
+    print('update table %s' % tbl.__table__.name)
     session = access.Session()
     total_db = 0
     for f in file_list:
         m = re.match(r'^([A-Z].+)_(\d{4})_trench_report', f)
         if m:
-            url =file_list[f][1]
+            url = file_list[f][1]
             trench = m.group(1)
             year = m.group(2)
             q = session.query(tbl).filter(tbl.Trench == trench, tbl.Trench_Year == year)
@@ -216,9 +220,10 @@ def update_trench_reports(tbl, file_list):
     print('commit changes')
     session.close()
 
-list_rebuild=True
-if input("Get new directory listing? (y/n)")=="n":
-    list_rebuild=False
+
+list_rebuild = True
+if input("Get new directory listing? (y/n)") == "n":
+    list_rebuild = False
 
 # UPDATE 1
 file_list = file_list_builder.get_file_list('PLANS', list_rebuild)

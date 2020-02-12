@@ -7,6 +7,9 @@ from updater_scripts.config import ACCESS_DATABASE_FILE
 
 # database connection
 # !!! Mind the path to the database, please use a local copy and do not access via webdav !!!
+
+print('Opening connectio to database %s' % ACCESS_DATABASE_FILE)
+
 Base = declarative_base()
 connection_string = (
         r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=%s; ExtendedAnsiSQL=1;' % ACCESS_DATABASE_FILE
@@ -78,6 +81,7 @@ class lot(Base):
                       Column("Lot", Integer, primary_key=True),
                       Column("Date", Date, primary_key=True),
                       autoload=True, autoload_with=engine)
+
 
 class trench(Base):
     __table__ = Table("2_Trench", Base.metadata,
