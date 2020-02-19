@@ -25,11 +25,11 @@ def picture_id_list(file_list):
     for f in file_list:
         basename = f
         url = file_list[f][1]
-        m = re.match(r'(.*)_(\d{11}).+', basename)
-        if m is not None:
-            picture_id = m.group(1)
-            flickr_id = m.group(2)
-            id_list[picture_id] = url
+        if re.search(r'_\d{11}_o', basename):
+            picture_id = basename[:-14]
+        else:
+            picture_id = basename
+        id_list[picture_id] = url
     return id_list
 
 
