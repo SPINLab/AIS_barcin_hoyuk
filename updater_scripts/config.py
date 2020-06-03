@@ -8,7 +8,7 @@ DRIVE_LETTER = "Y:\\"
 DATA_DIR = "research-barcin-hoyuk\\STATIC_DATA\\"
 
 # Root YODA WebDAV url
-ROOT_URL = 'https://vu-data.irodspoc-sara.surf-hosted.nl/'
+ROOT_URL = 'https://data.yoda.vu.nl/'
 
 # Location of the Access database file you want to update
 # Always use a copy on a local drive, no spaces in the name!
