@@ -25,8 +25,11 @@ def picture_id_list(file_list):
     for f in file_list:
         basename = f
         url = file_list[f][1]
-        if re.search(r'_\d{11}_o', basename):
-            picture_id = basename[:-14]
+        #L10_2015_IMG_0035_43711885095_6b1fb97fe5_o.jpg
+        #L10_2015_IMG_0036_21436345845_o.jpg
+        s=re.search(r'(.+)_(\d{11})(_.+)?_o', basename)
+        if s:
+            picture_id = s.group(1)
         else:
             picture_id = basename
         id_list[picture_id] = url
@@ -42,9 +45,9 @@ def update_picture_urls(tbl, file_list):
     total_db = 0
     for row in rows.all():
         if row is not None:
-            if row.Picture_ID in id_list:
+            if row.Picture_ID.strip() in id_list:
                 total_db = total_db + 1
-                row.picture_url = access_link(id_list[row.Picture_ID])
+                row.picture_url = access_link(id_list[row.Picture_ID.strip()])
     print('%s picture_urls set in db' % (total_db))
     print('commit changes')
     session.commit()
