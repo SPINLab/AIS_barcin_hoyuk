@@ -152,7 +152,7 @@ def update_daily_sketches(tbl, file_list):
     session.close()
 
 
-def update_bh_picture_urls(tbl, file_list):
+def update_bh_picture_urls(tbl, file_list, url_changed = False):
     print('update table %s' % tbl.__table__.name)
     session = access.Session()
     total_db = 0
@@ -161,6 +161,9 @@ def update_bh_picture_urls(tbl, file_list):
         if m:
             url = file_list[f][1]
             bhnum = m.group(1)
+            if url_changed:
+                q=session.query(tbl).filter(tbl.BH_Number == bhnum)
+                q.delete()
             # a BH_Number can have more than one picture, so the combination is unique
             q = session.query(tbl).filter(tbl.BH_Number == bhnum, tbl.picture_url == access_link(url))
             if q.count() == 0:  # new record
@@ -176,7 +179,7 @@ def update_bh_picture_urls(tbl, file_list):
     session.close()
 
 
-def update_bh_drawing_urls(tbl, file_list):
+def update_bh_drawing_urls(tbl, file_list, url_changed = False):
     print('update table %s' % tbl.__table__.name)
     session = access.Session()
     total_db = 0
@@ -185,6 +188,9 @@ def update_bh_drawing_urls(tbl, file_list):
         if m:
             url = file_list[f][1]
             bhnum = m.group(1)
+            if url_changed:
+                q=session.query(tbl).filter(tbl.BH_number == bhnum)
+                q.delete()
             # a BH_Number can have more than one picture, so the combination is unique
             q = session.query(tbl).filter(tbl.BH_number == bhnum, tbl.Link_to_BH_drawing == access_link(url))
             if q.count() == 0:  # new record
@@ -200,7 +206,7 @@ def update_bh_drawing_urls(tbl, file_list):
     session.close()
 
 
-def update_trench_reports(tbl, file_list):
+def update_trench_reports(tbl, file_list, url_changed = False):
     print('update table %s' % tbl.__table__.name)
     session = access.Session()
     total_db = 0
@@ -210,6 +216,9 @@ def update_trench_reports(tbl, file_list):
             url = file_list[f][1]
             trench = m.group(1)
             year = m.group(2)
+            q = session.query(tbl).filter(tbl.Trench == trench, tbl.Trench_Year == year)
+            if url_changed:
+                q.delete()
             q = session.query(tbl).filter(tbl.Trench == trench, tbl.Trench_Year == year)
             if q.count() == 0:  # new record
                 tr = tbl(
@@ -228,6 +237,10 @@ def update_trench_reports(tbl, file_list):
 list_rebuild = True
 if input("Get new directory listing? (y/n)") == "n":
     list_rebuild = False
+
+url_changed = False
+if input("Has the root YODA WebDAV url changed? (y/n)") == "y":
+    url_changed = True
 
 # UPDATE 1
 file_list = file_list_builder.get_file_list('PLANS', list_rebuild)
@@ -265,14 +278,14 @@ update_picture_urls(access.pictures_fieldwork_Nails, file_list)
 update_picture_urls(access.pictures_fieldwork_Structure, file_list)
 update_picture_urls(access.pictures_fieldwork_Locus_Lot, file_list)
 # UPDATE 7
-update_bh_picture_urls(access.BH_pictures, file_list)
+update_bh_picture_urls(access.BH_pictures, file_list, url_changed)
 
 # UPDATE 8
 file_list = file_list_builder.get_file_list('OBJECT_DRAWINGS', list_rebuild)
 print('%s files found in OBJECT_DRAWINGS' % len(file_list))
-update_bh_drawing_urls(access.BH_drawings, file_list)
+update_bh_drawing_urls(access.BH_drawings, file_list, url_changed)
 
 # UPDATE 9
 file_list = file_list_builder.get_file_list('TRENCH_REPORTS', list_rebuild)
 print('%s files found in TRENCH_REPORTS' % len(file_list))
-update_trench_reports(access.trench, file_list)
+update_trench_reports(access.trench, file_list, url_changed)
